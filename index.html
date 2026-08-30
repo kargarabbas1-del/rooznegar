@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f172a"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+  <title>روزنگار | مرکز فرماندهی روز</title>
+</head>
+<body>
+<header class="topbar"><div class="brand">روزنگار <small>مرکز فرماندهی زندگی</small></div><div class="actions"><button id="todayBtn">امروز</button><button id="themeBtn" aria-label="تغییر پوسته">☾</button><button id="exportBtn">خروجی JSON</button><label class="import">ورودی JSON<input id="importFile" type="file" accept=".json,application/json"></label></div></header>
+<div class="shell"><aside class="sidebar"><div class="nav-title">منوی اصلی</div><button class="nav active" data-view="today">🏠 صفحه امروز</button><button class="nav" data-view="calendar">🗓 تقویم</button><button class="nav" data-view="tasks">✅ همه کارها</button><button class="nav" data-view="timebox">⏱ تایم‌باکس</button><button class="nav" data-view="journal">✍️ ژورنال</button><button class="nav" data-view="habits">🌱 عادت‌ها</button><button class="nav" data-view="reports">📊 گزارش‌ها</button><button class="nav" data-view="gratitude">🙏 شکرگزاری</button><button class="nav" data-view="ideas">💡 مغزنویسی و ایده‌ها</button><div class="storage">✓ ذخیره‌سازی محلی فعال<br><span>بدون نیاز به حساب کاربری</span></div></aside><main id="app"></main></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div><script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="app.js"></script><script defer src="cloud-sync.js"></script><script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
+</body></html>
