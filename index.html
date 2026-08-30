@@ -2,10 +2,24 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0f172a"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0f172a"><link rel="manifest" href="manifest.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
   <title>روزنگار | مرکز فرماندهی روز</title>
 </head>
 <body>
+<section id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">روزنگار</div>
+    <p class="auth-subtitle">مرکز فرماندهی زندگی</p>
+    <form id="authForm" class="auth-form">
+      <label>ایمیل<input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <label>رمز عبور<input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="حداقل ۶ کاراکتر"></label>
+      <label class="remember-row"><input id="rememberMe" type="checkbox"> مرا به خاطر بسپار</label>
+      <button id="authLogin" class="primary" type="submit">ورود</button>
+      <button id="authSignup" class="secondary" type="button">ثبت‌نام</button>
+      <p id="authMessage" class="auth-message" role="status"></p>
+    </form>
+  </div>
+</section>
 <header class="topbar">
   <div class="topbar-start"><button id="menuBtn" class="icon-button" aria-label="باز کردن تنظیمات" aria-expanded="false">☰</button><button id="themeBtn" class="icon-button" aria-label="تغییر پوسته">☾</button></div>
   <div class="brand">روزنگار <small>مرکز فرماندهی زندگی</small></div>
@@ -18,6 +32,6 @@
   <section class="drawer-section"><h3>پشتیبان‌گیری</h3><div class="drawer-actions"><button id="exportBtn" class="secondary">دانلود بکاپ JSON</button><label class="secondary import">بازیابی فایل بکاپ<input id="importFile" type="file" accept=".json,application/json"></label></div></section>
   <section class="drawer-section about"><h3>دربارهٔ روزنگار</h3><p>برنامه‌ریزی، ژورنال، عادت‌ها و مرور روزانه</p><small>نسخه ۱۰ · ذخیره‌سازی محلی و ابری</small></section>
 </aside>
-<div class="shell"><aside class="sidebar"><div class="nav-title">منوی اصلی</div><nav class="nav-scroller" aria-label="ناوبری اصلی"><button class="nav active" data-view="today">🏠 امروز</button><button class="nav" data-view="calendar">🗓 تقویم</button><button class="nav" data-view="tasks">✅ همه کارها</button><button class="nav" data-view="timebox">⏱ تایم‌باکس</button><button class="nav" data-view="journal">✍️ ژورنال</button><button class="nav" data-view="habits">🌱 عادت‌ها</button><button class="nav" data-view="reports">📊 گزارش‌ها</button><button class="nav" data-view="gratitude">🙏 شکرگزاری</button><button class="nav" data-view="ideas">💡 ایده‌ها</button></nav><div class="storage">✓ ذخیره‌سازی محلی فعال<br><span>بدون نیاز به حساب کاربری</span></div></aside><main id="app"></main></div>
+<div id="appShell" class="shell"><aside class="sidebar"><div class="nav-title">منوی اصلی</div><nav class="nav-scroller" aria-label="ناوبری اصلی"><button class="nav active" data-view="today">🏠 امروز</button><button class="nav" data-view="calendar">🗓 تقویم</button><button class="nav" data-view="tasks">✅ همه کارها</button><button class="nav" data-view="timebox">⏱ تایم‌باکس</button><button class="nav" data-view="journal">✍️ ژورنال</button><button class="nav" data-view="habits">🌱 عادت‌ها</button><button class="nav" data-view="reports">📊 گزارش‌ها</button><button class="nav" data-view="gratitude">🙏 شکرگزاری</button><button class="nav" data-view="ideas">💡 ایده‌ها</button></nav><div class="storage">✓ ذخیره‌سازی محلی فعال<br><span>بدون نیاز به حساب کاربری</span></div></aside><main id="app"></main></div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div><script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="app.js"></script><script defer src="cloud-sync.js"></script><script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 </body></html>

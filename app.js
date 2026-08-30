@@ -1,3 +1,4 @@
+let isAuthenticated=false;
 const KEY='rooznegar-final-v9', MAX=8;
 const toPersianParts=date=>{const parts=new Intl.DateTimeFormat('en-US-u-ca-persian',{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(date);return {year:Number(parts.find(p=>p.type==='year')?.value),month:Number(parts.find(p=>p.type==='month')?.value),day:Number(parts.find(p=>p.type==='day')?.value)}};
 const nowJalali=toPersianParts(new Date()), storedDate=localStorage.getItem('rooznegar-selected-date');

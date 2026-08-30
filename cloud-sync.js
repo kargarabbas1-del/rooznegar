@@ -3,6 +3,10 @@
   const SUPABASE_KEY = 'sb_publishable_t3E0fjKytjg7i0V1zohdtg_YdNlkfmx';
   const client = window.supabase?.createClient?.(SUPABASE_URL, SUPABASE_KEY);
   if (!client || !window.rooznegar) return;
+  const authScreen=document.getElementById('authScreen'), appShell=document.getElementById('appShell');
+  const authEmail=document.getElementById('authEmail'), authPassword=document.getElementById('authPassword'), rememberMe=document.getElementById('rememberMe'), authMessage=document.getElementById('authMessage');
+  const setGate=ok=>{authScreen?.classList.toggle('hidden',ok);appShell?.classList.toggle('locked',!ok);document.querySelector('.topbar')?.classList.toggle('locked',!ok);if(ok)window.rooznegar.render('today')};
+  const remembered=localStorage.getItem('rooznegar-remember-email');if(remembered&&authEmail){authEmail.value=remembered;rememberMe.checked=true}
 
   const bar = document.createElement('div');
   bar.className = 'cloud-sync-bar';
@@ -32,16 +36,20 @@
     if (result.error) return status('ورود ناموفق بود', true);
     if (result.data.user) { await loadRemote(result.data.user); update(result.data.user); }
   };
+  const authSubmit=async(mode)=>{const email=authEmail?.value.trim(),password=authPassword?.value;if(!email||!password){if(authMessage)authMessage.textContent='ایمیل و رمز عبور را وارد کنید';return}if(authMessage)authMessage.textContent='در حال اتصال...';const result=mode==='signup'?await client.auth.signUp({email,password}):await client.auth.signInWithPassword({email,password});if(result.error){if(authMessage)authMessage.textContent=result.error.message||'ورود ناموفق بود';return}if(rememberMe?.checked)localStorage.setItem('rooznegar-remember-email',email);else localStorage.removeItem('rooznegar-remember-email');if(result.data.user){await loadRemote(result.data.user);update(result.data.user)}};
+  document.getElementById('authForm')?.addEventListener('submit',e=>{e.preventDefault();authSubmit('login').catch(()=>{if(authMessage)authMessage.textContent='خطا در اتصال'})});
+  document.getElementById('authSignup')?.addEventListener('click',()=>authSubmit('signup').catch(()=>{if(authMessage)authMessage.textContent='خطا در ثبت‌نام'}));
   const update = user => {
     status(`متصل: ${user.email}`);
     document.getElementById('cloudLogin').hidden = true;
     document.getElementById('cloudSync').hidden = false;
     document.getElementById('cloudLogout').hidden = false;
+    setGate(true);
   };
   document.getElementById('cloudLogin').onclick = () => login().catch(() => status('خطا در همگام‌سازی', true));
   document.getElementById('cloudSync').onclick = () => syncNow().catch(() => status('همگام‌سازی ناموفق بود', true));
   document.getElementById('cloudLogout').onclick = () => client.auth.signOut().then(() => location.reload());
   let timer;
   window.addEventListener('rooznegar:data-changed', () => { clearTimeout(timer); timer = setTimeout(() => syncNow().catch(() => {}), 900); });
-  client.auth.getUser().then(async ({ data: { user } }) => { if (user) { update(user); try { await loadRemote(user); } catch { status('اتصال ابری برقرار نشد', true); } } });
+  client.auth.getUser().then(async ({ data: { user } }) => { if (user) { try { await loadRemote(user); } catch {} update(user); } else setGate(false); });
 })();
