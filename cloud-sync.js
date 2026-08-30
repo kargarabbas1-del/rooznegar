@@ -7,7 +7,7 @@
   const bar = document.createElement('div');
   bar.className = 'cloud-sync-bar';
   bar.innerHTML = '<span id="cloudStatus">همگام‌سازی ابری: وارد نشده</span><button id="cloudLogin" class="secondary mini">ورود/ثبت‌نام</button><button id="cloudSync" class="secondary mini" hidden>همگام‌سازی</button><button id="cloudLogout" class="danger mini" hidden>خروج</button>';
-  document.querySelector('.actions')?.appendChild(bar);
+  (document.getElementById('drawerCloudMount') || document.querySelector('.actions'))?.appendChild(bar);
   const status = (text, bad = false) => { const e = document.getElementById('cloudStatus'); if (e) { e.textContent = text; e.classList.toggle('cloud-error', bad); } };
   const syncNow = async () => {
     const { data: { user } } = await client.auth.getUser();
